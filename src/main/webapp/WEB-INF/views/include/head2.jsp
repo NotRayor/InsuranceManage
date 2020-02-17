@@ -31,8 +31,17 @@
   <!-- Custom styles for this template -->
   <link href="${path }/dist/css/agency.min.css" rel="stylesheet">
 
-   <link rel="stylesheet" href="${path }/dist/css/test_intro.css"/>
   	  
+  <link rel="stylesheet" href="${path }/dist/css/common.css"/>
+  
+  <!-- login phone -->
+  <link rel="stylesheet" media="(min-width:0px) and (max-width:700px)" href="${path }/dist/css/login_phone.css">
+  
+  <!-- intro Phone -->
+  <link rel="stylesheet" media="(min-width:0px) and (max-width:700px)" href="${path }/dist/css/intro_phone.css">
+  
+  <link rel="stylesheet" href="${path }/dist/css/test_intro.css"/>
+  
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -40,10 +49,4 @@
 
   
 
-  <link rel="stylesheet" href="${path }/dist/css/common.css"/>
-  
-  <!-- login phone -->
-  <link rel="stylesheet" media="(min-width:0px) and (max-width:700px)" href="${path }/dist/css/login_phone.css">
-  
-  
 </head>

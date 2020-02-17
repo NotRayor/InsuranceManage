@@ -10,7 +10,7 @@
 	            <ul>
 	            <c:if test="${empty login }">
 	              <li><a href="${path }/admin/login">로그인</a></li>
-	              <li><a href="${path }/admin/register">회원가입</a></li>
+	              <li><a href="${path }/admin/registerAgreement">회원가입</a></li>
 	            </c:if>
 	            <c:if test="${login.adminPosition eq '관리자' }">
 	              <li><a href="${path }/admin/list">직원관리</a></li>

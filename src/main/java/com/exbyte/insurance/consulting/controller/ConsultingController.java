@@ -103,24 +103,6 @@ public class ConsultingController {
 		return "/consulting/list2";
 	}
 	
-	// 상담 리스트 읽기 ( 값 수정을 위해서 들어감 )
-	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read(Model model, @RequestParam("consultingNo") int consultingNo) throws Exception {
-		
-		model.addAttribute("consulting", consultingService.read(consultingNo));
-		
-		return "/consulting/read";
-	}
-	
-	// 수정 페이지 이동
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public String modify(Model model, int consultingNo) throws Exception {
-		
-		model.addAttribute("consulting", consultingService.read(consultingNo));
-		
-		return "/cosulting/modify";
-	}
-	
 	// 상담 리스트 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String deletePOST(@ModelAttribute("criteria") Criteria criteria, @RequestParam(value="chkbox[]") List<String> arr,
@@ -141,33 +123,6 @@ public class ConsultingController {
 		
 		// AJAX로 호출해서, return은 동작 안한다.
 		return "redirect:/consulting/list";
-	}
-	
-	// 상담 리스트 1차 콜 // 최종 확인
-	@RequestMapping(value = "/updateCheck", method = RequestMethod.POST)
-	@ResponseBody
-	public int updateCheck(Model model, @RequestParam(value="chkbox[]") List<String> arr,
-			ConsultingVO consulting) throws Exception {
-		
-		int consultingNo = 0;
-		
-		// return 0;
-		
-		for(String i : arr) {
-			consultingNo = Integer.parseInt(i);
-			consultingService.delete(consultingNo);
-		}
-		
-		return 1;
-	}
-	
-
-	@RequestMapping(value = "/sort", method = RequestMethod.GET)
-	@ResponseBody
-	public List<ConsultingVO> sortGET(List<ConsultingVO> currentList) {
-		
-		
-		return currentList;
 	}
 	
 	@RequestMapping(value = "/updateAdmin", method = RequestMethod.GET)
@@ -195,24 +150,6 @@ public class ConsultingController {
 		return 1;
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	@ResponseBody
-	public int updateGET(Model model, @RequestParam(value="arr") ConsultingModifyDTO arr) {
-		logger.info("updateGET 확인");
-		
-		try {	
-			int consultingNo;
-			
-			logger.info(arr.toString());
-			
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return 0;
-		}
-		return 1;
-	}
-
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public int updatePOST(Model model, @RequestBody List<ConsultingModifyDTO> modifyArray) {

@@ -84,7 +84,9 @@
 	  <div class="row">
 	    <div class="form-group">
 			<button type="button" class="btn btn-primary btn-flat" id="modifyBtn">갱신</button>
-	    	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#assignModal">배정</button>
+			<c:if test="${login.adminPosition eq '관리자'}">
+	    		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#assignModal">배정</button>
+	    	</c:if>
 	    </div>
 	  </div>
 	  <div class="row">

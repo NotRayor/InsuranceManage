@@ -5,8 +5,6 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,7 +21,6 @@ public class ConsultingUpdateTest {
 	private final String STRING_ADMIN = "testing";
 	private final String STRING_UPDATE_TEST = "junitUpdateTest";
 	
-	private final static Logger logger = LoggerFactory.getLogger(ConsultingUpdateTest.class);
 
 	@Inject
 	private ConsultingDAO consultingDAO;

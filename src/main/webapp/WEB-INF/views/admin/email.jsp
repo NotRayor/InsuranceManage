@@ -12,17 +12,18 @@
         <div class="content container-fluid">
             <div class="col-lg-12">
                 <div class="card card-primary card-outline">
-                <form action="${path }/admin/email" method="post">
+                <form action="${path }/admin/email" method="post" return>
                 	<input type="text" name="adminEmail" value="${adminEmail }" hidden="true"> 
                     <div class="card-header">
-                    	<h3 class="card-title">계정찾기 </h3>
+                    	<h3 class="card-title">이메일 전송 </h3>
                     </div><!--/.card-header-->
                     <div class="card-body">
                     	이메일을 확인해주세요. 이메일 : ${adminEmail }
                     	이메일 재전송을 원한다면 해당 버튼을 클릭하세요.
                     </div><!--/.card-body-->
                     <div class="card-footer">
-                    	<button class="btn btn-primary" type="submit">재전송</button>
+                    	<button class="btn btn-primary" id="submitBtn" type="submit"
+                    	onclick="this.disabled=true;this.value='전송중..';this.form.submit();">재전송</button>
                     </div><!--/.card-footer-->
 	            </form>
                 </div>
@@ -37,6 +38,18 @@
 <!-- ./wrapper -->
 <%@ include file="../include/plugin_js.jsp"%>
 <script>
+	var isSubmited = false;
+	var submitBtn = $("#submitBtn");
+
+	function doubleSubmitCheck(){
+		if(isSubmited == false){
+			isSubmited = true;
+			return isSubmited;
+		}else{
+			return isSubmited;
+		}
+	}
+	
 
 </script>
 </body>

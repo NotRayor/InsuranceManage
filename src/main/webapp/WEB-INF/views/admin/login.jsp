@@ -61,7 +61,7 @@
 	}
 
 	$('.btnRegister').click(function(){
-		self.location = "${path }/admin/register";
+		self.location = "${path }/admin/registerAgreement";
 	});
 
 	var loadPoint =  function(){
@@ -83,7 +83,7 @@
 	       }
 	     });
 	}
-  loadPoint();
+	loadPoint();
 </script>
 
 </html>

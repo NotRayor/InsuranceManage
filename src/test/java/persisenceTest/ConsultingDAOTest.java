@@ -89,7 +89,6 @@ public class ConsultingDAOTest {
 	public void selectAll() throws Exception {
 		AdminVO adminVO = setAdmin();
 
-		PageMaker pageMaker = new PageMaker();
 		Criteria criteria = new Criteria();
 		criteria.setSearchType("");
 		List<ConsultingVO> list = consultingDAO.selectAll(criteria, adminVO);

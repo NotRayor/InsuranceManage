@@ -2,16 +2,18 @@ package com.exbyte.insurance.admin.persistence;
 
 import java.util.List;
 
+import org.springframework.dao.DuplicateKeyException;
+
 import com.exbyte.insurance.admin.domain.AdminVO;
-import com.exbyte.insurance.admin.domain.LoginDTO;
+import com.exbyte.insurance.admin.dto.LoginDTO;
 import com.exbyte.insurance.point.domain.PointVO;
 
 public interface AdminDAO {
 
-	void create(AdminVO adminVO) throws Exception;
+	void create(AdminVO adminVO) throws DuplicateKeyException;
 	AdminVO read(String adminId) throws Exception;
 	AdminVO login(LoginDTO loginDTO) throws Exception;
-	void update(AdminVO adminVO) throws Exception;
+	void update(AdminVO adminVO) throws DuplicateKeyException;
 	void delete(AdminVO adminVO) throws Exception;
 	String checkPosition(String adminId) throws Exception;
 	void keepSession(String adminId, String sessionId) throws Exception;

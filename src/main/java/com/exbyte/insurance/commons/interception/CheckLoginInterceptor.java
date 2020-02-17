@@ -23,8 +23,8 @@ public class CheckLoginInterceptor extends HandlerInterceptorAdapter{
 			response.sendRedirect(request.getContextPath() + "/admin/login");
 			return false;
 		}
-		
 
+		
 		return true;
 	}
 	

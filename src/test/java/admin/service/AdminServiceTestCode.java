@@ -37,10 +37,4 @@ public class AdminServiceTestCode extends MockTest{
 		assertTrue(adminService.read("admin") == adminVO);
 		
 	}
-	@Test
-	public void testCreateAccount() throws Exception {
-		AdminVO adminVO;
-		
-	}
-	
 }

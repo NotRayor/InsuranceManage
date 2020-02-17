@@ -72,7 +72,7 @@
 				<div class="join_sub-form" id="join_sub_locates">
 					<span class="form-boxs_js"><span class="js_sub">*</span>지점</span> 
 					<select
-						class="form-box_js" id="pointList" name="adminPoint" required="required">
+						class="form-box_js adminPoint" id="pointList" name="adminPoint" required="required">
 					</select>
 				</div>
 	          <div class="join_sub-form" id="join_sub_position">
@@ -83,7 +83,7 @@
 	              <option>사원</option>
 	            </select>
 	          </div>
-				<button class="btns_join" id="btn_join" type="button" onclick="">가입하기</button>
+				<button class="btns_join submitBtn" id="btn_join" type="button" >가입하기</button>
 			</form>
 		</div>
 	</section>
@@ -110,7 +110,9 @@
 	var rePw = /^[a-zA-Z0-9.,`~!@#$%^&*()_+-]{6,12}$/; // 아이디와 패스워드가 적합한지 검사할 정규식
 	var reEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일이 적합한지 검사할 정규식
 	var rePhone = /^[0-9]+$/;
-		
+
+	var submitBtn = $(".submitBtn");
+	
 	   var ajaxListPoint = function(){
 		     $.ajax({
 			       url : "${path }/admin/listPoint", // HTTP요청을 보낼 URL 주소
@@ -174,8 +176,9 @@
 	function ajaxCheckPosition(){
 		return new Promise(function(resolve, reject){
 		    var adminPosition = $('.adminPosition').val();
+		    var adminPoint = $('.adminPoint').val();
 		    var promise = $.ajax({
-		      url : "${path }/admin/checkPosition"+"?adminPosition=" + adminPosition,
+		      url : "${path }/admin/checkPosition"+"?adminPosition=" + adminPosition + "&adminPoint=" + adminPoint,
 		      type : "get",
 		      success : function(data){
 			      resolve();
@@ -195,6 +198,7 @@
 				alert(msg);
 				return;
 			}
+			doubleSubmitCheck();
 			formObj.submit();
 		});
 
@@ -242,7 +246,7 @@
 			msg = "비밀번호는 영문과 숫자 혼합 6~12자리만 가능합니다.";
 		}
 		if(!reEmail.test(adminEmail)){
-			msg = "이메일을 다시 확인해주세요. ";
+			msg = "이메일을 형식이 맞지 않습니다. ";
 		}
 		if(adminPw != adminCheckPw){
 			msg = "비밀번호 확인을 다시 입력하세요. ";
@@ -260,22 +264,9 @@
 	
 	}
 
-    function joinMSG() {
-/*       var chk1 = document.getElementById("join_ag1");
-      var chk2 = document.getElementById("join_ag2");
-      if (chk1.checked==false&&chk2.checked==false){
-        alert("필수사항을 체크해주세요")}
-      else if (chk1.checked==false){
-        alert("이용약관 동의에 체크해주세요")}
-      else if (chk2.checked==false){
-        alert("개인정보수집 및 이용동의에 체크해주세요")} */
-      }
-  
 	  $('#adminId').blur(function(){
 		    ajaxCheckId();
 	  });
-
-
 
 	  $('.adminEmail').blur(function(){
 		  ajaxCheckEmail();

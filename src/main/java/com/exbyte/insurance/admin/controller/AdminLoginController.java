@@ -18,10 +18,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.exbyte.insurance.admin.domain.AdminVO;
-import com.exbyte.insurance.admin.domain.LoginDTO;
+import com.exbyte.insurance.admin.dto.LoginDTO;
+import com.exbyte.insurance.admin.exception.InvalidAuthKeyAccessException;
 import com.exbyte.insurance.admin.service.AdminMailService;
 import com.exbyte.insurance.admin.service.AdminService;
-import com.exbyte.insurance.commons.exception.EmailAuthException;
 
 @Controller
 @RequestMapping("/admin")
@@ -57,6 +57,7 @@ public class AdminLoginController {
 		if(loginCookie != null) {
 			String savedAdminId = adminService.checkSession(loginCookie.getValue());
 			model.addAttribute("adminId", savedAdminId);
+			
 		}
 
 		return "/admin/login";
@@ -65,7 +66,7 @@ public class AdminLoginController {
 	// ProvideLoginSessionInterceptor : postHandler 호출 - 쿠키 생성
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/loginPOST", method = RequestMethod.POST)
-	public String loginPOST(LoginDTO loginDTO, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes, HttpSession httpSession)
+	public String loginPOST(LoginDTO loginDTO, Model model, RedirectAttributes redirectAttributes, HttpSession httpSession)
 	throws Exception {
 
 		AdminVO adminVO = null;
@@ -89,7 +90,7 @@ public class AdminLoginController {
 			adminService.keepSession(adminVO.getAdminId() , httpSession.getId());
 		}
 		// Auth Key 실패
-		catch (EmailAuthException e) {
+		catch (InvalidAuthKeyAccessException e) {
 			adminVO = adminService.read(loginDTO.getAdminId());
 			redirectAttributes.addAttribute("adminEmail", adminVO.getAdminEmail());
 			logger.info("adminEmail : " + adminVO.getAdminEmail());

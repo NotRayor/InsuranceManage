@@ -14,24 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		
 		return "commons/index";
-	}
-	
-	@RequestMapping(value = "/index2", method = RequestMethod.GET)
-	public String testHome() {
-		return "commons/index2";
-	}
-	
-	@RequestMapping(value = "/sampleIndex", method = RequestMethod.GET)
-	public String sampleHome() {
-		return "commons/sample";
 	}
 
 	@RequestMapping(value = "/intro")
@@ -43,6 +30,7 @@ public class HomeController {
 	public String management() {
 		return "commons/management";
 	}
+	
 	
 	
 }

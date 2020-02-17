@@ -21,3 +21,6 @@
 
 <!-- AdminLTE App -->
 <script src="${path }/dist/js/adminlte.js"></script>
+
+<!-- Commons -->
+<script src="${path }/dist/js/commons.js"></script>

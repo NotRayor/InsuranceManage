@@ -32,7 +32,7 @@
 	                    	</div>
 	                    </div><!--/.card-body-->
 	                    <div class="card-footer">
-	                    	<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>정보 수정</button>
+	                    	<button type="button" class="btn btn-primary" id="emailUpdateBtn"><i class="fa fa-save"></i>정보 수정</button>
 	                    	<button type="button" class="btn btn-primary" id="updatePwBtn">비밀번호 변경</button>
 	                    	<button type="button" class="btn btn-primary" id="memberDeleteBtn"> 회원탈퇴</button>
 	                    </div><!--/.card-footer-->
@@ -56,19 +56,46 @@
 $(document).ready(function(){
 
 	var formObj = $("form[role='form']");
+	var reEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일이 적합한지 검사할 정규식
+	var msg = "";
 	
-  // 메시지 
-  var result = "${msg}";
-  if (result == "regSuccess") {
-      alert("게시글 등록이 완료되었습니다.");
-  } else if (result == "modSuccess") {
-      alert("게시글 수정이 완료되었습니다.");
-  } else if (result == "delSuccess") {
-      alert("게시글 삭제가 완료되었습니다.");
-  }
+	// 메시지 
+	var result = "${msg}";
+	if (result == "regSuccess") {
+	    alert("게시글 등록이 완료되었습니다.");
+	} else if (result == "modSuccess") {
+	    alert("게시글 수정이 완료되었습니다.");
+	} else if (result == "delSuccess") {
+	    alert("게시글 삭제가 완료되었습니다.");
+	}
+
+	$("#emailUpdateBtn").click(function(){
+		if(emailValidate()){
+			alert(msg);
+			return;
+		}
+		AjaxDuplicateEmail().then(function(data){
+			if(data == true){
+				msg="이미 등록된 이메일 입니다.";
+				alert(msg);
+			}
+			else{
+				formObj.submit();
+			}
+		});
+	});
+	
+	function emailValidate(){
+		var adminEmail = $("#adminEmail").val();
+		if(!reEmail.test(adminEmail)){
+			msg = "이메일을 형식이 맞지 않습니다.";
+			return true;
+		}
+		return false;
+	}
 
   $("#updatePwBtn").click(function(){
-	self.location = "${path }/admin/updatePw?adminId=${login.adminId}&authKey=${login.adminAuthKey}";
+		self.location = "${path }/admin/updatePw?adminId=${login.adminId}&authKey=${login.adminAuthKey}";
   });
   
   $("#memberDeleteBtn").click(function(){
@@ -83,8 +110,30 @@ $(document).ready(function(){
 
   });
 
-   
-   
+	function AjaxDuplicateEmail(){
+		return new Promise(function (resolve, reject){
+		    var adminEmail = $('#adminEmail').val();
+		    $.ajax({
+		      url : "${path }/admin/checkEmail"+"?adminEmail=" + adminEmail,
+		      type : "get",
+		      success : function(data){
+		        if(data>=1){
+		          	resolve(true);
+		        }
+		        else{
+			        resolve(false);
+			    }
+		      },
+		      error : function(data){
+			    alert("이메일 중복 체크 실패");
+				reject();
+			  }
+		    });
+		});
+	}
+
+	
+	
 });
 
 </script>

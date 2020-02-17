@@ -31,4 +31,5 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="${path }/dist/js/default.js"></script>
 
-
+<!-- Commons -->
+<script src="${path }/dist/js/commons.js"></script>

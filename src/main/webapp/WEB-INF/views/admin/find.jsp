@@ -12,7 +12,7 @@
         <div class="content container-fluid">
             <div class="col-lg-12">
                 <div class="card card-primary card-outline">
-                    <form role="form" id="writeForm" method="post" action="${path}/admin/findPOST">
+                    <form role="form" id="writeForm" method="post" action="${path}/admin/findPOST" onsubmit="doubleSubmitCheck()">
 	                    <div class="card-header">
 	                    	<h3 class="card-title">계정찾기 </h3>
 	                    </div><!--/.card-header-->
@@ -23,7 +23,8 @@
 	                    	</div>
 	                    </div><!--/.card-body-->
 	                    <div class="card-footer">
-	                    	<button type="submit" class="btn btn-primary">계정찾기</button>
+	                    	<button type="submit" class="btn btn-primary" id="submitBtn"
+	                    	>계정찾기</button>
 	                    	<button type="reset" class="btn btn-primary" id="resetBtn">취소</button>
 	                    </div><!--/.card-footer-->
 	                </form> 
@@ -32,17 +33,19 @@
         </div>
         <!-- /.content -->
 
-
+<!-- onclick="this.disabled=true;this.value='전송중입니다....'; this.form.submit();" -->
     <!-- Main Footer -->
     <%@ include file="../include/main_footer2.jsp"%>
 </div>
 <!-- ./wrapper -->
 <%@ include file="../include/plugin_js.jsp"%>
 <script>
- result="${msg}";
- if(result=="FAIL"){
+	
+	result="${msg}";
+	if(result=="FAIL"){
 		alert('이메일을 다시 확인해주세요.');
 	}
+	
 
 </script>
 </body>

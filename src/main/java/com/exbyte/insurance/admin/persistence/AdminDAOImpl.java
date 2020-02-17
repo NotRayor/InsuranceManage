@@ -7,10 +7,11 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
 import com.exbyte.insurance.admin.domain.AdminVO;
-import com.exbyte.insurance.admin.domain.LoginDTO;
+import com.exbyte.insurance.admin.dto.LoginDTO;
 import com.exbyte.insurance.point.domain.PointVO;
 
 @Repository
@@ -26,7 +27,7 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 	
 	@Override
-	public void create(AdminVO adminVO) throws Exception {
+	public void create(AdminVO adminVO) throws DuplicateKeyException {
 		sqlSession.insert(NAMESPACE + ".create", adminVO);
 	}
 
@@ -41,7 +42,7 @@ public class AdminDAOImpl implements AdminDAO{
 		
 	}
 	@Override
-	public void update(AdminVO adminVO) throws Exception {
+	public void update(AdminVO adminVO) throws DuplicateKeyException {
 		sqlSession.update(NAMESPACE + ".update", adminVO); 
 	}
 
@@ -62,7 +63,6 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public String checkPosition(String adminId) throws Exception {
-		
 		return sqlSession.selectOne(NAMESPACE + ".checkPosition", adminId);
 	}
 

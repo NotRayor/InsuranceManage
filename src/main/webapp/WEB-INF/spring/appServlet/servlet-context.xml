@@ -39,7 +39,13 @@
 		<interceptor>
 			<mapping path="/admin/list"/>
 			<mapping path="/consulting/list"/>
+			<mapping path="/admin/point/list"/>
 			<beans:bean id ="authInterceptor" class="com.exbyte.insurance.commons.interception.CheckLoginInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/list"/>
+			<mapping path="/admin/point/list"/>
+			<beans:bean id="CheckRootAdminInterceptor" class="com.exbyte.insurance.commons.interception.CheckRootAdminInterceptor"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/admin/login"/>

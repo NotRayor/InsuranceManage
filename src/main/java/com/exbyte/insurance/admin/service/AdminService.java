@@ -1,14 +1,16 @@
 package com.exbyte.insurance.admin.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.exbyte.insurance.admin.domain.AdminVO;
-import com.exbyte.insurance.admin.domain.LoginDTO;
 import com.exbyte.insurance.admin.domain.PointDTO;
+import com.exbyte.insurance.admin.dto.LoginDTO;
+import com.exbyte.insurance.admin.exception.DuplicateKeyAdminException;
 import com.exbyte.insurance.point.domain.PointVO;
 
 public interface AdminService {
-	void create(AdminVO adminVO) throws Exception;
+	void create(AdminVO adminVO) throws DuplicateKeyAdminException, SQLException;
 	AdminVO read(String adminId) throws Exception;
 	AdminVO login(LoginDTO loginDTO) throws Exception;
 	void update(AdminVO adminVO) throws Exception;

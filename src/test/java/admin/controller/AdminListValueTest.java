@@ -38,7 +38,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.exbyte.insurance.admin.controller.AdminController;
 import com.exbyte.insurance.admin.domain.AdminVO;
-import com.exbyte.insurance.admin.domain.LoginDTO;
+import com.exbyte.insurance.admin.dto.LoginDTO;
 import com.exbyte.insurance.admin.service.AdminMailService;
 import com.exbyte.insurance.admin.service.AdminService;
 import com.exbyte.insurance.point.domain.PointVO;

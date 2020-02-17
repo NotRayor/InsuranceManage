@@ -7,18 +7,23 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.exbyte.insurance.admin.domain.AdminVO;
-import com.exbyte.insurance.admin.domain.LoginDTO;
 import com.exbyte.insurance.admin.domain.PointDTO;
+import com.exbyte.insurance.admin.dto.LoginDTO;
+import com.exbyte.insurance.admin.exception.DuplicateKeyAdminException;
+import com.exbyte.insurance.admin.exception.InvalidAuthKeyAccessException;
 import com.exbyte.insurance.admin.persistence.AdminDAO;
-import com.exbyte.insurance.commons.exception.EmailAuthException;
 import com.exbyte.insurance.consulting.service.ConsultingServiceOutside;
 import com.exbyte.insurance.point.domain.PointVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class AdminServiceImpl implements AdminService {
 
 	private final AdminDAO adminDAO;
@@ -34,8 +39,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void create(AdminVO adminVO) throws Exception {
-		adminDAO.create(adminVO);
+	public void create(AdminVO adminVO) throws DuplicateKeyAdminException, DataAccessException {
+		try {
+			adminDAO.create(adminVO);
+		}catch(DataAccessException e) {
+			
+		}
 	}
 
 	@Override
@@ -76,10 +85,10 @@ public class AdminServiceImpl implements AdminService {
 			}
 			
 			if(!adminVO.getAdminAuthKey().contentEquals("Y")) {
-				throw new EmailAuthException("이메일 인증이 필요합니다.");
+				throw new InvalidAuthKeyAccessException();
 			}
 			
-		}catch (EmailAuthException arg1) {
+		}catch (InvalidAuthKeyAccessException arg1) {
 			throw arg1;
 		}catch (IllegalArgumentException arg2) {
 			throw arg2;
@@ -125,7 +134,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<PointDTO> selectPointAdmin() throws Exception {
 		List<PointVO> list = adminDAO.selectAllPoint();
-		List<PointDTO> listPoint = new ArrayList();
+		List<PointDTO> listPoint = new ArrayList<>();
 		logger.info(list.toString());
 		for(PointVO pointVO : list) {
 			PointDTO pointDTO = new PointDTO();
@@ -137,6 +146,7 @@ public class AdminServiceImpl implements AdminService {
 				
 			}catch (NullPointerException e) {
 				e.printStackTrace();
+				log.info("AdminServiceImpl selectPointAdmin" + "Point's Admin is NULL");
 				pointDTO.setPointAdmin("NULL");
 			}
 			listPoint.add(pointDTO);
