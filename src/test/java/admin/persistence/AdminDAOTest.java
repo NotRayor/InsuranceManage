@@ -110,12 +110,6 @@ public class AdminDAOTest {
 	}
 	
 	@Test
-	public void checkAdmin() throws Exception {
-		
-	}
-	
-	
-	@Test
 	public void doingSomeOperatorGeneratesSomeResult() {
 		
 	}

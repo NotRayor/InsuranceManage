@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.exbyte.insurance.admin.domain.AdminVO;
-import com.exbyte.insurance.admin.domain.Position;
 import com.exbyte.insurance.admin.persistence.AdminDAO;
 
 @Service
@@ -20,6 +19,7 @@ public class AdminCountService {
 
 	public int countId(String adminId) throws Exception {
 		return adminDAO.countId(adminId);
+		
 	}
 
 	public int countEmail(String adminEmail) throws Exception {
@@ -32,9 +32,11 @@ public class AdminCountService {
 	}
 	
 	public int countPosition(AdminVO adminVO) throws Exception {
-		if(adminVO.getAdminPosition().equals(Position.EMPLOYEE.getPositionName())) {
+		
+		if(adminVO.getAdminPosition().equals("사원")) {
 			return 0;
 		}
+		
 		return adminDAO.countPosition(adminVO);
 	}
 	
